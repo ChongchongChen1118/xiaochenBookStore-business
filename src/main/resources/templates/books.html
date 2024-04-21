@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>图书管理</title>
+
+    <meta name="description" content="Source code generated using layoutit.com">
+    <meta name="author" content="LayoutIt!">
+
+    <link th:href="@{/index/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/index/css/style.css}" rel="stylesheet">
+
+</head>
+<body>
+
+<div class="container-fluid">
+    <div th:replace="header::header"></div>
+    <br><br><br>
+    <button type="button" class="btn btn-primary">
+        <a style="color: white" th:href="@{/insertbook}">新增图书</a>
+    </button>
+    <br><br>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-hover">
+                <thead>
+                <tr class="table-primary" align="center">
+                    <th scope="col">序号</th>
+                    <th scope="col">图书</th>
+                    <th scope="col">书名</th>
+                    <th scope="col">作者</th>
+                    <th scope="col">分类</th>
+                    <th scope="col">ISBN码</th>
+                    <th scope="col">价格</th>
+                    <th scope="col">库存</th>
+                    <th scope="col">操作</th>
+                </tr>
+                </thead>
+                <tbody th:each="all,aStat:${page.list}">
+                <tr class="table-light" align="center">
+                    <td th:text="${aStat.index+1}" class="align-middle"></td>
+                    <td><img th:src="@{${all.boPhoto}}" width="100px" class="align-middle"></td>
+                    <td th:text="'《'+${all.boName}+'》'" class="align-middle"></td>
+                    <td th:text="${all.boAuthor}" class="align-middle"></td>
+                    <td th:text="${all.boCid}" class="align-middle"></td>
+                    <td th:text="'--'+${all.boNumber}+'--'" class="align-middle"></td>
+                    <td th:text="${all.boPrice}+' ￥'" class="align-middle"></td>
+                    <td th:text="${all.boInventory}+' 本'" class="align-middle" th:if="${!all.boInventory.equals('0')}"></td>
+                    <b><td th:text="${all.boInventory}+' 本'" class="align-middle" th:if="${all.boInventory.equals('0')}" style="color: red"></td></b>
+                    <td class="align-middle">
+                        <a th:href="@{'/updatebook/'+${all.boId}}">修改</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="pagination justify-content-center">
+                <li class="page-item" th:if="${page.hasPreviousPage}">
+                    <a class="page-link" th:href="@{'/selectbooks/1'}">首页</a>
+                </li>
+                <li class="page-item disabled" th:if="${!page.hasPreviousPage}">
+                    <a class="page-link">首页</a>
+                </li>
+                <li class="page-item" th:if="${page.hasPreviousPage}">
+                    <a class="page-link" th:href="@{'/selectbooks/'+${page.prePage}}">&laquo;</a>
+                </li>
+                <li class="page-item disabled" th:if="${!page.hasPreviousPage}">
+                    <a class="page-link">&laquo;</a>
+                </li>
+                <p th:each="num : ${page.navigatepageNums}">
+                    <li class="page-item active" th:if="${page.pageNum == num}">
+                        <a  class="page-link" th:href="@{'/selectbooks/'+${num}}"
+                           th:text="${num}"></a>
+                    </li>
+                        <li class="page-item" th:if="${page.pageNum != num}">
+                            <a  class="page-link" th:href="@{'/selectbooks/'+${num}}"
+                               th:text="${num}"></a>
+                        </li>
+                    </p>
+                <li class="page-item" th:if="${page.hasNextPage}">
+                    <a class="page-link"  th:href="@{'/selectbooks/'+${page.nextPage}}">&raquo;</a>
+                </li>
+                <li class="page-item disabled" th:if="${!page.hasNextPage}">
+                    <a class="page-link" >&raquo;</a>
+                </li>
+                <li class="page-item" th:if="${page.hasNextPage}">
+                    <a class="page-link"  th:href="@{'/selectbooks/'+${page.pages}}">末页</a>
+                </li>
+                <li class="page-item disabled" th:if="${!page.hasNextPage}">
+                    <a class="page-link" >末页</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<!-- bootstrap.bundle.min.js 用于弹窗、提示、下拉菜单，包含了 popper.min.js -->
+<script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+<!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
+<script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<!--	<script th:src="@{/static/index/js/jquery.min.js}"></script>-->
+<!--	<script th:src="@{/static/index/js/bootstrap.min.js}"></script>-->
+<script th:src="@{/index/js/scripts.js}"></script>
+</body>
+</html>

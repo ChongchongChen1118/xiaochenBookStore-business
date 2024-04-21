@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>登录</title>
+
+    <meta name="description" content="Source code generated using layoutit.com">
+    <meta name="author" content="LayoutIt!">
+
+    <link th:href="@{/index/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/index/css/style.css}" rel="stylesheet">
+
+</head>
+<body>
+
+<div class="container-fluid">
+    <br><br>
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="text-center">
+                小陈图书后台管理系统
+            </h3>
+        </div>
+    </div>
+    <br>
+    <div class="row" th:if="${yes>0}">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <form th:action="@{/login}" method="post">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">管理员账号</label>
+                    <input name="account" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                           placeholder="请输入管理员账号">
+                    <small id="emailHelp" class="form-text text-muted">只限管理员使用！</small>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">管理员密码</label>
+                    <input name="pass" type="password" class="form-control" id="exampleInputPassword1"
+                           placeholder="请输入管理员密码">
+                </div>
+                <br>
+                <div align="center"><input type="submit" class="btn btn-primary" value="登录"></div>
+
+            </form>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+
+
+    <div class="row" th:if="${yes<0}">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <form th:action="@{/login}" method="post">
+                <div class="form-group has-danger">
+                    <label class="form-control-label" for="inputInvalid1">请输入管理员账号</label>
+                    <input name="account" type="text" value="wrong value" class="form-control is-invalid" id="inputInvalid1" th:value="${account}">
+                    <div class="invalid-feedback">账号或密码输入错误，请重新输入！</div>
+                </div>
+                <div class="form-group has-danger">
+                    <label class="form-control-label" for="inputInvalid2">请输入管理员密码</label>
+                    <input name="pass" type="password" value="wrong value" class="form-control is-invalid" id="inputInvalid2">
+                    <div class="invalid-feedback">账号或密码输入错误，请重新输入！</div>
+                </div>
+                <br>
+                <div align="center"><input type="submit" class="btn btn-primary" value="登录"></div>
+            </form>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+</div>
+
+<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<!-- bootstrap.bundle.min.js 用于弹窗、提示、下拉菜单，包含了 popper.min.js -->
+<script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+<!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
+<script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<!--	<script th:src="@{/static/index/js/jquery.min.js}"></script>-->
+<!--	<script th:src="@{/static/index/js/bootstrap.min.js}"></script>-->
+<script th:src="@{/index/js/scripts.js}"></script>
+</body>
+</html>

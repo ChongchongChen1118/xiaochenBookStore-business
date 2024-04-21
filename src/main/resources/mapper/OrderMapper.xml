@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+     "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssm.qmxm.dao.OrderDao">
+	<select id="selectorder"  resultType="com.ssm.qmxm.model.OrderModel">
+	     select * from orders order by or_yes asc,or_id asc
+	</select>
+	<select id="admin" resultType="com.ssm.qmxm.model.SellerModel">
+		select * from seller where se_account=#{account}
+	</select>
+	<update id="fahuo">
+		update orders set or_yes=1,or_deliver=#{param2},or_names=#{param3} where or_id=#{param1}
+	</update>
+	<select id="users" resultType="com.ssm.qmxm.model.UserModel">
+		select * from buyer
+	</select>
+	<update id="deleteuser">
+		update buyer set bu_out=1 where bu_id=#{id}
+	</update>
+	<update id="dedeleteuser">
+		update buyer set bu_out=0 where bu_id=#{id}
+	</update>
+	<select id="selectbuyerxx" resultType="Integer">
+		select xx_id from buyerxx where cid=#{id}
+	</select>
+	<select id="selectshop" resultType="Integer">
+        select sh_buyer from shop where sh_buyer=#{id}
+	</select>
+	<select id="classification" resultType="com.ssm.qmxm.model.BooksclModel">
+		select * from bookscl
+	</select>
+	<delete id="deletescl">
+		delete from bookscl where cl_id=#{id}
+	</delete>
+	<select id="selectbookbyid" resultType="Integer">
+		select bo_id from books where bo_cid=#{id}
+	</select>
+	<update id="updatescl">
+		update bookscl set cl_type=#{param1} where cl_id=#{param2}
+	</update>
+	<insert id="insertscl" parameterType="com.ssm.qmxm.model.BooksclModel">
+		insert into bookscl values (null, #{clType});
+	</insert>
+	<select id="selectscl" resultType="String">
+		select cl_type from bookscl where cl_type=#{name}
+	</select>
+	<select id="selectbooks" resultType="com.ssm.qmxm.model.BooksModel">
+		select * from books
+	</select>
+	<insert id="inputbook" parameterType="com.ssm.qmxm.model.BooksModel">
+		insert into books values (null,#{boName},#{boNumber},#{boPrice},#{boIntroduction},-1,#{boPhoto},#{boCid},#{boInventory},0,#{boAuthor})
+	</insert>
+	<select id="selebook" resultType="com.ssm.qmxm.model.BooksModel" parameterType="Integer">
+		select * from books where bo_id=#{id}
+	</select>
+	<update id="upbook" parameterType="com.ssm.qmxm.model.BooksModel">
+		update books set bo_name=#{boName},bo_number=#{boNumber},bo_price=#{boPrice},bo_introduction=#{boIntroduction},bo_cid=#{boCid},bo_inventory=#{boInventory},bo_author=#{boAuthor} where bo_id=#{boId}
+	</update>
+	<update id="upbook1" parameterType="com.ssm.qmxm.model.BooksModel">
+		update books set bo_name=#{boName},bo_number=#{boNumber},bo_price=#{boPrice},bo_introduction=#{boIntroduction},bo_cid=#{boCid},bo_inventory=#{boInventory},bo_author=#{boAuthor},bo_photo=#{boPhoto} where bo_id=#{boId}
+	</update>
+	<select id="selectProvince" resultType="com.ssm.qmxm.model.DistrictProvince">
+		select * from district_province
+	</select>
+	<select id="selectCityByCid" resultType="com.ssm.qmxm.model.DistrictCity">
+		select * from district_city where ci_cid=#{id}
+	</select>
+	<select id="selectAdressDTO" resultType="com.ssm.qmxm.dto.SellerAddressDTO">
+		select * from seller_address ads
+		inner join district_province pr on ads.ads_province=pr.pr_id
+		inner join district_city ci on ads.ads_city=ci.ci_id
+		where ads_seller=#{id}
+	</select>
+	<select id="selectCityById" resultType="com.ssm.qmxm.model.DistrictCity">
+		select * from district_city where ci_id=#{id}
+	</select>
+	<insert id="insertAddress" parameterType="com.ssm.qmxm.model.SellerAddress">
+		insert into seller_address values (null,#{adsProvince},#{adsCity},#{adsHouse},#{adsSeller})
+	</insert>
+	<select id="selectAddressById" resultType="com.ssm.qmxm.model.SellerAddress">
+		select * from seller_address where ads_id=#{id}
+	</select>
+	<update id="updateAddress" parameterType="com.ssm.qmxm.model.SellerAddress">
+		update seller_address set ads_province=#{adsProvince},ads_city=#{adsCity},ads_house=#{adsHouse} where ads_id=#{adsId}
+	</update>
+	<delete id="deleteAddress">
+		delete from seller_address where ads_id=#{id}
+	</delete>
+	<update id="adddeliver">
+
+	</update>
+</mapper>

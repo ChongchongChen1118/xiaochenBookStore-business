@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>地址操作</title>
+
+    <meta name="description" content="Source code generated using layoutit.com">
+    <meta name="author" content="LayoutIt!">
+
+    <link th:href="@{/index/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/index/css/style.css}" rel="stylesheet">
+
+
+</head>
+<body>
+
+<div class="container-fluid">
+    <div th:replace="header::header"></div>
+    <br><br><br><br>
+    <div class="row">
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+            <div class="alert alert-dismissible alert-danger" th:if="${not1==1}">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>新增失败！</strong> <br>填写的内容不完整，请重新填写！
+            </div>
+        </div>
+        <div class="col-md-4">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="text-center">
+                发货地址操作
+            </h3>
+            <br>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+            <form th:action="@{/addressjudgment}" method="post">
+                <input type="hidden" name="adsId" th:value="${num}">
+                <div class="form-group">
+                    <label for="bind2">省/自治区/直辖市</label>
+                    <select class="form-control" id="bind2" onchange="self.location.href=options[selectedIndex].value">
+                        <div th:each="province:${province}" th:if="${num==null}">
+                            <option th:value="@{'/addaddress/'+${province.prId}}" th:text="${province.prName}" th:if="${cid!=province.prId}"></option>
+                            <option th:value="@{'/addaddress/'+${province.prId}}" th:text="${province.prName}" th:if="${cid==province.prId}" selected></option>
+                        </div>
+                        <div th:each="province:${province}" th:if="${num!=null}">
+                            <option th:value="@{'/upaddress/'+${num}+'/'+${province.prId}}" th:text="${province.prName}" th:if="${cid!=province.prId}"></option>
+                            <option th:value="@{'/upaddress/'+${num}+'/'+${province.prId}}" th:text="${province.prName}" th:if="${cid==province.prId}" selected></option>
+                        </div>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="bind3">市/县/区</label>
+                    <select class="form-control" id="bind3" name="adsCity">
+                            <div th:each="city:${city}">
+                                <option th:text="${city.ciName}" th:value="${city.ciId}" th:if="${cityId==city.ciId}" selected></option>
+                                <option th:text="${city.ciName}" th:value="${city.ciId}" th:if="${cityId!=city.ciId}"></option>
+                            </div>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="bind5">详细地址</label>
+                        <input type="text" name="adsHouse" class="form-control" id="bind5" placeholder="请输入详细地址" th:value="${house}" required>
+                </div>
+                <br>
+                <div class="form-group d-flex justify-content-center">
+                    <input type="submit" class="btn btn-primary" value="提交"/>
+                </div>
+            </form>
+
+        </div>
+        <div class="col-md-4">
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<!-- bootstrap.bundle.min.js 用于弹窗、提示、下拉菜单，包含了 popper.min.js -->
+<script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+<!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
+<script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<!--	<script th:src="@{/static/index/js/jquery.min.js}"></script>-->
+<!--	<script th:src="@{/static/index/js/bootstrap.min.js}"></script>-->
+<script th:src="@{/index/js/scripts.js}"></script>
+</body>
+</html>

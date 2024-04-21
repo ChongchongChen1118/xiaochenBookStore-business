@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>分类管理</title>
+
+    <meta name="description" content="Source code generated using layoutit.com">
+    <meta name="author" content="LayoutIt!">
+
+    <link th:href="@{/index/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/index/css/style.css}" rel="stylesheet">
+
+</head>
+<body>
+
+<div class="container-fluid">
+    <div th:replace="header::header"></div>
+    <br><br><br>
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="text-center">
+                分类管理
+            </h3>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+            <div class="alert alert-dismissible alert-success" th:if="${yes==1}">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>分类删除成功！</strong>
+            </div>
+            <div class="alert alert-dismissible alert-danger" th:if="${yes==0}">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>分类删除失败！</strong><br> 可能的原因为：此分类下已有图书
+            </div>
+            <div class="alert alert-dismissible alert-success" th:if="${update==1}">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>分类修改成功！</strong>
+            </div>
+            <div class="alert alert-dismissible alert-danger" th:if="${update==0}">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>分类修改失败！</strong><br> 可能的原因为：已有此分类
+            </div>
+            <div class="alert alert-dismissible alert-success" th:if="${insert==1}">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>分类添加成功！</strong>
+            </div>
+            <div class="alert alert-dismissible alert-danger" th:if="${insert==0}">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>分类添加失败！</strong><br> 可能的原因为：已有此分类
+            </div>
+            <button type="button" class="btn btn-primary"><a style="color: white" id="modal-471741" href="#modal-container-5717045" data-toggle="modal">新增分类</a></button>
+        </div>
+        <div class="col-md-4">
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+            <table class="table table-hover">
+                <tr class="table-info" align="center">
+                    <th scope="row">序号</th>
+                    <th scope="row">分类</th>
+                    <th scope="row">操作</th>
+                </tr>
+                <div th:each="scl,aStat:${page.list}">
+                    <tr class="table-light" align="center">
+                        <td th:text="${aStat.index+1}"></td>
+                        <td th:text="${scl.clType}"></td>
+                        <td>
+                            <a id="modal-471745" th:href="'#modal-container-4717'+${aStat.index+1}" data-toggle="modal">修改</a>
+                            &nbsp;&nbsp;
+                            <a th:href="@{'/deletescl/'+${scl.clId}}">删除</a>
+                            <div class="modal fade" th:id="'modal-container-4717'+${aStat.index+1}" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="myModalLabel">
+                                                请修改！
+                                            </h5>
+                                            <button type="button" class="close" data-dismiss="modal">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                        </div>
+                                        <form th:action="@{/updatescl}">
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    <input type="hidden" name="clId" th:value="${scl.clId}">
+                                                    <input type="text" name="clType" th:value="${scl.clType}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="请输入图书类别">
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <input type="submit" class="btn btn-primary" value="确定"/>
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                    取消
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </td>
+                    </tr>
+                </div>
+            </table>
+        </div>
+        <div class="col-md-4">
+        </div>
+    </div>
+    <br>
+
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                    <a class="page-link" th:if="${page.hasPreviousPage}" th:href="@{'/classification/1'}">首页</a>
+                </li>
+                <li class="page-item disabled">
+                    <a class="page-link" th:if="${!page.hasPreviousPage}">首页</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" th:if="${page.hasPreviousPage}"
+                       th:href="@{'/classification/'+${page.prePage}}">&laquo;</a>
+                </li>
+                <li class="page-item disabled">
+                    <a class="page-link" th:if="${!page.hasPreviousPage}">&laquo;</a>
+                </li>
+                <span th:each="num : ${page.navigatepageNums}">
+                    <li class="page-item active">
+                        <a th:if="${page.pageNum == num}" class="page-link" th:href="@{'/classification/'+${num}}"
+                           th:text="${num}"></a>
+                    </li>
+                        <li class="page-item">
+                            <a th:if="${page.pageNum != num}" class="page-link" th:href="@{'/classification/'+${num}}"
+                               th:text="${num}"></a>
+                        </li>
+                    </span>
+                <li class="page-item">
+                    <a class="page-link" th:if="${page.hasNextPage}" th:href="@{'/classification/'+${page.nextPage}}">&raquo;</a>
+                </li>
+                <li class="page-item disabled">
+                    <a class="page-link" th:if="${!page.hasNextPage}">&raquo;</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" th:if="${page.hasNextPage}"
+                       th:href="@{'/classification/'+${page.pages}}">末页</a>
+                </li>
+                <li class="page-item disabled">
+                    <a class="page-link" th:if="${!page.hasNextPage}">末页</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="modal fade" id="modal-container-5717045" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel1">
+                        请添加！
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <form th:action="@{/insertscl}">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="text" name="clType" class="form-control" id="exampleInputEmail3" aria-describedby="emailHelp" placeholder="请输入新增图书分类">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-primary" value="确定"/>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            取消
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<!-- bootstrap.bundle.min.js 用于弹窗、提示、下拉菜单，包含了 popper.min.js -->
+<script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+<!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
+<script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<!--	<script th:src="@{/static/index/js/jquery.min.js}"></script>-->
+<!--	<script th:src="@{/static/index/js/bootstrap.min.js}"></script>-->
+<script th:src="@{/index/js/scripts.js}"></script>
+</body>
+</html>

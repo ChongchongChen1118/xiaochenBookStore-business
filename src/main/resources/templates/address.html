@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>发货地址管理</title>
+
+    <meta name="description" content="Source code generated using layoutit.com">
+    <meta name="author" content="LayoutIt!">
+
+    <link th:href="@{/index/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/index/css/style.css}" rel="stylesheet">
+
+</head>
+<body>
+
+<div class="container-fluid">
+    <div th:replace="header::header"></div>
+    <br><br><br>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-dismissible alert-success" th:if="${judgment==1}">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>添加成功！</strong> <br>地址添加成功
+            </div>
+            <div class="alert alert-dismissible alert-success" th:if="${judgment==2}">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>修改成功！</strong> <br>地址修改成功
+            </div>
+            <div class="alert alert-dismissible alert-success" th:if="${judgment==3}">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>删除成功！</strong> <br>地址删除成功
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <h4>
+                &nbsp;&nbsp;收货地址管理
+            </h4>
+        </div>
+        <div class="col-md-7">
+        </div>
+        <div class="col-md-3">
+
+            <a th:href="@{/addaddress/1}"> <button type="button" class="btn btn-success">
+                新增
+            </button></a>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-hover">
+                <thead>
+                <tr align="center">
+                    <th>
+                        编号
+                    </th>
+                    <th>
+                        省
+                    </th>
+                    <th>
+                        市
+                    </th>
+                    <th>
+                        详细地址
+                    </th>
+                    <th>
+                        操作
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="all,aStat:${list}" align="center" class="table-light">
+                    <td th:text="${aStat.index+1}">
+                    </td>
+                    <td th:text="${all.prName}">
+                    </td>
+                    <td th:text="${all.ciName}">
+                    </td>
+                    <td th:text="${all.adsHouse}">
+                    </td>
+                    <td>
+                        <a th:href="@{'/upaddress/'+${all.adsId}+'/'+${all.prId}}">
+                            <button type="button" class="btn btn-danger">修改</button>
+                        </a>
+                        &nbsp;
+                        <a th:href="'#modal-container-4717'+${aStat.index+1}" data-toggle="modal">
+                            <button type="button" class="btn btn-danger">删除</button>
+                        </a>
+                    </td>
+                    <div class="modal fade" th:id="'modal-container-4717'+${aStat.index+1}" role="dialog"
+                         aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="myModalLabel1">
+                                        注意！
+                                    </h5>
+                                    <button type="button" class="close" data-dismiss="modal">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        您确定要删除吗？
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <form th:action="@{'/deleteaddress/'+${all.adsId}}" method="post">
+                                        <input type="submit" class="btn btn-danger" value="删除">
+                                    </form>
+                                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">
+                                        关闭
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <!-- bootstrap.bundle.min.js 用于弹窗、提示、下拉菜单，包含了 popper.min.js -->
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!--	<script th:src="@{/static/index/js/jquery.min.js}"></script>-->
+    <!--	<script th:src="@{/static/index/js/bootstrap.min.js}"></script>-->
+    <script th:src="@{/index/js/scripts.js}"></script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>用户管理</title>
+
+    <meta name="description" content="Source code generated using layoutit.com">
+    <meta name="author" content="LayoutIt!">
+
+    <link th:href="@{/index/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/index/css/style.css}" rel="stylesheet">
+
+</head>
+<body>
+
+<div class="container-fluid">
+    <div th:replace="header::header"></div>
+    <br><br><br>
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="text-center">
+                用户管理
+            </h3>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+            <div class="alert alert-dismissible alert-success" th:if="${pan==1}">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>封禁成功！</strong>
+            </div>
+            <div class="alert alert-dismissible alert-success" th:if="${depan==1}">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>解封成功！</strong>
+            </div>
+            <table class="table table-hover">
+                <tr class="table-dark">
+                    <th scope="col">序号</th>
+                    <th scope="col">用户名</th>
+                    <th scope="col">操作</th>
+                </tr>
+                <div th:each="user,aStat:${page.list}">
+                    <tr class="table-light">
+                        <td th:text="${aStat.index+1}"></td>
+                        <td th:text="${user.buAccount}"></td>
+                        <td th:if="${user.buOut.equals('0')}"><a th:href="@{'/deleteuser/'+${user.buId}}">封禁用户</a></td>
+                        <td th:if="${user.buOut.equals('1')}"><a th:href="@{'/dedeleteuser/'+${user.buId}}">解封用户</a></td>
+                    </tr>
+                </div>
+            </table>
+        </div>
+        <div class="col-md-4">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                    <a class="page-link" th:if="${page.hasPreviousPage}" th:href="@{'/user/1'}">首页</a>
+                </li>
+                <li class="page-item disabled">
+                    <a class="page-link" th:if="${!page.hasPreviousPage}">首页</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" th:if="${page.hasPreviousPage}" th:href="@{'/user/'+${page.prePage}}">&laquo;</a>
+                </li>
+                <li class="page-item disabled">
+                    <a class="page-link" th:if="${!page.hasPreviousPage}">&laquo;</a>
+                </li>
+                <span th:each="num : ${page.navigatepageNums}">
+                    <li class="page-item active">
+                        <a th:if="${page.pageNum == num}" class="page-link" th:href="@{'/user/'+${num}}"
+                           th:text="${num}"></a>
+                    </li>
+                        <li class="page-item">
+                            <a th:if="${page.pageNum != num}" class="page-link" th:href="@{'/user/'+${num}}"
+                               th:text="${num}"></a>
+                        </li>
+                    </span>
+                <li class="page-item">
+                    <a class="page-link" th:if="${page.hasNextPage}" th:href="@{'/user/'+${page.nextPage}}">&raquo;</a>
+                </li>
+                <li class="page-item disabled">
+                    <a class="page-link" th:if="${!page.hasNextPage}">&raquo;</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" th:if="${page.hasNextPage}" th:href="@{'/user/'+${page.pages}}">末页</a>
+                </li>
+                <li class="page-item disabled">
+                    <a class="page-link" th:if="${!page.hasNextPage}">末页</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<!-- bootstrap.bundle.min.js 用于弹窗、提示、下拉菜单，包含了 popper.min.js -->
+<script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+<!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
+<script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<!--	<script th:src="@{/static/index/js/jquery.min.js}"></script>-->
+<!--	<script th:src="@{/static/index/js/bootstrap.min.js}"></script>-->
+<script th:src="@{/index/js/scripts.js}"></script>
+</body>
+</html>
